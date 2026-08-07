@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#080b09;--side:#0c100d;--card:#10151b;--line:#1c2420;--line2:#26332b;--text:#eef3ee;--muted:#98a69c;--dim:#6b7a70;--yellow:#eab308}
+:root{--bg:#080b09;--side:#0c100d;--card:#10151b;--line:#1c2420;--line2:#26332b;--text:#eef3ee;--muted:#98a69c;--dim:#6b7a70;--yellow:#eab308;--red:#f87171}
 [data-theme="green"]{--acc:#4ade80;--acc2:#22c55e;--acc-soft:rgba(74,222,128,.10);--acc-border:rgba(74,222,128,.35)}
 [data-theme="blue"]{--acc:#60a5fa;--acc2:#3b82f6;--acc-soft:rgba(96,165,250,.10);--acc-border:rgba(96,165,250,.35)}
 [data-theme="orange"]{--acc:#fb923c;--acc2:#f97316;--acc-soft:rgba(251,146,60,.10);--acc-border:rgba(251,146,60,.35)}
@@ -36,13 +36,14 @@ a{color:var(--acc)}
 .nav-item:hover{color:var(--text);background:var(--acc-soft)}
 .nav-item.active{color:var(--acc);background:var(--acc-soft);border-color:var(--acc-border)}
 .nav-group .subnav{display:none;margin:2px 0 10px 27px;padding-left:14px;border-left:1px solid var(--line2)}
-.nav-group.open .subnav{display:block}
-.sub-item{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:9px;color:var(--muted);font-family:Manrope;font-weight:600;font-size:13.5px;text-decoration:none;margin-bottom:4px;border:1px solid transparent}
+.nav-group.open>.subnav{display:block}
+.sub-item{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border-radius:9px;color:var(--muted);font-family:Manrope;font-weight:600;font-size:13.5px;text-decoration:none;margin-bottom:4px;border:1px solid transparent;background:none;cursor:pointer;text-align:left}
 .sub-item:hover{color:var(--text)}
 .sub-item.active{color:var(--text);background:var(--acc-soft);border-color:var(--acc-border)}
+.subnav .nav-group .subnav{margin-left:12px}
 .pill{margin-left:auto;font-family:'JetBrains Mono';font-size:9.5px;color:var(--acc);border:1px solid var(--acc-border);background:var(--acc-soft);padding:3px 8px;border-radius:6px;letter-spacing:.1em}
-.chev{margin-left:auto;transition:.2s}
-.nav-group.open .chev{transform:rotate(180deg)}
+.chev{margin-left:auto;transition:.2s;flex:none}
+.nav-group.open>.chev,.nav-group.open>.sub-item .chev{transform:rotate(180deg)}
 .side-bottom{padding:18px 20px;border-top:1px solid var(--line)}
 .theme-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .theme-name{font-family:'JetBrains Mono';font-size:11px;color:var(--muted)}
@@ -87,12 +88,21 @@ blockquote{border-left:3px solid var(--acc2);background:var(--acc-soft);padding:
 .stat{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--acc2);border-radius:12px;padding:22px;text-align:center}
 .stat b{display:block;font-family:'JetBrains Mono';font-size:34px;color:var(--acc);font-weight:700}
 .stat span{font-family:Manrope;font-size:12.5px;color:var(--muted);letter-spacing:.08em}
-/* CHANGELOG */
+/* CHANGELOG / RULES */
 .log{list-style:none}
 .log li{font-family:'JetBrains Mono';font-size:12.5px;color:var(--muted);margin-bottom:10px;display:flex;gap:10px;line-height:1.6}
 .log li:last-child{margin-bottom:0}
 .tag{font-weight:700;flex:none}
 .tag.add{color:var(--acc)}.tag.chg{color:var(--yellow)}
+.rule{padding:16px 0;border-bottom:1px dashed var(--line2)}
+.rule:first-of-type{padding-top:4px}
+.rule:last-of-type{border-bottom:0;padding-bottom:0}
+.rule b{display:block;font-family:Manrope;font-size:14.5px;color:var(--text);margin-bottom:8px}
+.rule b i{font-style:normal;color:var(--acc)}
+.rule p{font-size:14px !important;margin-bottom:8px !important}
+.rule ul{margin:0 0 8px 18px;color:var(--muted);font-size:14px;line-height:1.7}
+.pun{font-family:'JetBrains Mono';font-size:10px;color:var(--red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);padding:3px 9px;border-radius:6px}
+.loading{font-family:'JetBrains Mono';font-size:13px;color:var(--dim);animation:p 2s infinite}
 /* STAFF */
 .member{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line2)}
 .member:last-child{border-bottom:0}
@@ -121,8 +131,17 @@ blockquote{border-left:3px solid var(--acc2);background:var(--acc-soft);padding:
     <div class="nav-group open" id="infoGroup">
       <button class="nav-item" id="infoBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>Информация<svg class="chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="subnav">
-        <a class="sub-item" href="#" data-go="about"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>О проекте &amp; Новости</a>
-        <a class="sub-item" href="#" data-go="rules"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Правила сервера</a>
+        <a class="sub-item" href="#" data-go="about">О проекте</a>
+        <a class="sub-item" href="#" data-go="news">Новости</a>
+        <a class="sub-item" href="#" data-go="updates">Обновления</a>
+        <div class="nav-group" id="rulesGroup">
+          <button class="sub-item" id="rulesBtn">Правила<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="subnav">
+            <a class="sub-item" href="#" data-go="rules-server">Правила сервера</a>
+            <a class="sub-item" href="#" data-go="rules-bot">Правила бота</a>
+            <a class="sub-item" href="#" data-go="rules-privacy">Приватность</a>
+          </div>
+        </div>
       </div>
     </div>
     <a class="nav-item" href="#" data-go="features"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Возможности<span class="pill">Новое</span></a>
@@ -253,6 +272,62 @@ blockquote{border-left:3px solid var(--acc2);background:var(--acc-soft);padding:
     <article class="card wide"><blockquote>«Война — это великий уравнитель. Её не заботят ни победа, ни поражение, так как в её безжалостных объятиях на краю гибели оказываются все.»</blockquote></article>
   </section>
 
+  <!-- ПРАВИЛА СЕРВЕРА -->
+  <section class="page" id="page-rules-server">
+    <h1>Правила <em>сервера</em></h1>
+    <p class="lead">Для поддержания порядка и продуктивной игры</p>
+    <article class="card wide" style="margin-top:0"><h3>📜 Общие правила</h3>
+      <div class="rule"><b>Правило <i>1.1</i> — Зона действия правил и личные границы</b><p>Правила проекта обязательны для соблюдения во всех публичных каналах. Личная переписка участников не модерируется, однако рассылка рекламы в ЛС или публикация чужих личных сообщений (включая скриншоты и видео) в открытом доступе строго наказывается.</p><span class="pun">Наказание: от мута до бана</span></div>
+      <div class="rule"><b>Правило <i>1.2</i> — Учётные записи и ролевой процесс</b><p>На проекте разрешено использовать только один основной профиль, а дополнительный аккаунт допускается исключительно в осведомительных целях — например, если основной был временно ограничен самой платформой Discord, либо технические неполадки не позволяют зайти с главной учётной записи. При этом создание таких резервных профилей для обхода выданных локальных наказаний, создания беспорядка или получения выгоды в процессе ролевой игры приведёт к блокировке всех ваших аккаунтов.</p><span class="pun">Наказание: бан всех учётных записей</span></div>
+      <div class="rule"><b>Правило <i>1.3</i> — Субординация и служба поддержки</b><p>Любые пресекательные меры применяются на усмотрение персонала, а обоснованные решения высшего руководства не подлежат публичному оспариванию. Запрещено беспричинно упоминать высшую администрацию — со всеми вопросами, жалобами и апелляциями необходимо обращаться напрямую в службу поддержки.</p></div>
+    </article>
+    <article class="card wide"><h3>🧾 Правила регистрации</h3>
+      <div class="rule"><b>Правило <i>2.1</i> — Регистрация и управление страной</b><p>Подать заявку на создание страны могут только владельцы учётных записей, зарегистрированных не менее трёх дней назад. Анкета должна строго соответствовать установленной форме подачи, в противном случае анкетолог вправе её отклонить. Важно учитывать, что при смене игровой страны весь прогресс, достигнутый за предыдущее государство, полностью и безвозвратно обнуляется.</p></div>
+      <div class="rule"><b>Правило <i>2.2</i> — Техническая честность и использование бота</b><p>Любое намеренное использование уязвимостей, багов или ошибок серверного бота в личных целях или во вред проекту категорически запрещено. Подобные действия расцениваются как отказ от услуг бота и ведут к автоматическому снятию с регистрации (потере страны). В зависимости от тяжести нарушения, администрация может дополнительно применить длительный мут, запрет на повторную регистрацию или полную блокировку на сервере.</p><span class="pun">Наказание: снятие с регистрации, вплоть до бана</span></div>
+      <div class="rule"><b>Правило <i>3.1</i> — Уважительное общение и запрет конфликтов</b><p>Запрещены любые оскорбления, угрозы, травля и дискриминация. Оскорбление или упоминание родственников в негативном ключе категорически запрещено даже в шуточной форме. Также запрещено подстрекать участников к конфликтам, разжигать ссоры или активно в них участвовать. Администрация оставляет за собой право наказать как исключительно инициатора, так и всех участников перепалки.</p><span class="pun">Наказание: от мута до 1 дня (за родственников — удвоение)</span></div>
+      <div class="rule"><b>Правило <i>3.2</i> — Запрещённый контент и реальная политика</b><p>Запрещена публикация, обмен и оправдание нелегальных материалов, порнографии, шокирующего контента (NSFW), распространение тоталитарной символики, а также оправдание всех нарушений прав против общества. Проект находится вне реальной политики. Строго запрещена политическая агитация, пропаганда и обсуждение реальных вооружённых конфликтов (включая войну между Украиной и Россией). Защита или продвижение позиций любых сторон из реального мира не приветствуется и пресекается.</p><span class="pun">Наказание: мут от 3 часов до 1 дня</span></div>
+      <div class="rule"><b>Правило <i>3.3</i> — Конфиденциальность</b><p>Категорически запрещено разглашать личную информацию других участников без их прямого согласия. Это касается реальных адресов, номеров телефонов, электронных почт, фотографий и любых других персональных данных.</p><span class="pun">Наказание: мут от 6 часов до 1 дня</span></div>
+      <div class="rule"><b>Правило <i>3.4</i> — Чистота чата: спам и реклама</b><p>Запрещено засорять чаты повторяющимися сообщениями, бессмысленным текстом, чрезмерным использованием CAPS LOCK или огромным количеством эмодзи. Оффтоп в тематических каналах также наказуем. Любой пиар сторонних проектов, серверов или продуктов без предварительного одобрения высшей администрации сервера запрещён и может привести к вечной блокировке аккаунта.</p><span class="pun">Наказание: от мута до бана</span></div>
+    </article>
+    <article class="card wide"><h3>🎮 Правила игры</h3>
+      <div class="rule"><b>Правило <i>4.1</i> — Общение и публикация новостей</b><ul>
+        <li>Тематика чатов: строго соблюдайте назначение каналов. Использование скобок // не освобождает от ответственности за оффтоп.</li>
+        <li>Формат новостей: все игровые сводки публикуются на грамотном русском языке (допускаются аутентичные заголовки, фразы в цитатах и очень минимальные ошибки). Новость должна полностью раскрывать суть события и включать комментарии участвующих лиц или гос. деятелей.</li>
+        <li>Объём: минимальный размер новости — 30 слов, а для государств со статусом сверхдержавы — 50 слов. Неформатные новости подлежат откату.</li>
+      </ul></div>
+      <div class="rule"><b>Правило <i>4.2</i> — Дипломатия, переговоры и транзакции</b><ul>
+        <li>Прозрачность переговоров: любые переговоры (включая секретные) ведутся исключительно в соответствующих форумных каналах. Соглашения и новости, основанные на договорённостях из ЛС или голосовых чатов, считаются недействительными, не влияют на RP-процесс и подлежат откату.</li>
+        <li>Передача ресурсов: любая передача финансов или военных сил требует полноценного RP-обоснования. Скрытые переводы без отыгровки ведут к изъятию средств без права возврата.</li>
+        <li>Преемственность договоров: при смене игрока на государстве, автономии или организации все ранее заключённые им пакты и договоры сохраняют свою силу. Новый правитель имеет полное право их денонсировать. Политологи при проверке соглашений обязаны сохранять абсолютный нейтралитет.</li>
+      </ul></div>
+      <div class="rule"><b>Правило <i>4.3</i> — Игровые механики: щиты, ультиматумы и NPC</b><ul>
+        <li>Защитный щит: после регистрации новое государство, автономия или организация получает иммунитет на 3 суток (если администрацией не указано иное). В этот период запрещено объявлять войны, получать и отправлять санкции, а также выдвигать или получать ультиматумы.</li>
+        <li>Ультиматумы: стандартный срок действия любого ультиматума автоматически фиксируется на реальных 24 часах.</li>
+        <li>Роль политологов: политолог (даже если он сам является игроком) имеет право отыгрывать войны, дипломатию и отвечать на ультиматумы от лица государств, не занятых игроками (NPC).</li>
+      </ul></div>
+      <div class="rule"><b>Правило <i>4.4</i> — Дополнительные игровые регламенты</b><ul>
+        <li>Правила войн: порядок ведения боевых действий, казус белли, причины для отката, механика сражений и процедура смены ведущего политолога.</li>
+        <li>Правила соглашений: стандартизированная форма для заключения международных договоров и обязательный состав участников сделки.</li>
+        <li>Правила военной активности: строгие шаблоны оформления военных действий, лимиты и штрафные санкции за несоблюдение форматов подачи.</li>
+      </ul></div>
+      <div class="rule"><b>Другое</b><p>Руководство и администрация может лишь частично гарантировать неприкосновенность личной жизни. Каждый участник в обсуждении своей личной жизни с другими участниками сам обязуется выстроить определённые рамки, за которые не стоит переходить в диалоге. Если определённого выстраивания рамок не произошло, то руководство и администрация вправе мутить исключительно по общесерверным правилам. Также участник сам решает, какую информацию про себя распространять. Если эта информация была использована другими сторонами против него же, то наказание на проекте совершается по соответствующему правилу.</p></div>
+    </article>
+  </section>
+
+  <!-- ПРАВИЛА БОТА -->
+  <section class="page" id="page-rules-bot">
+    <h1>Правила <em>бота</em></h1>
+    <p class="lead">Условия использования автоматизированных систем</p>
+    <article class="card wide" style="margin-top:0"><h3>🤖 Правила пользования бота</h3><p class="loading">Загрузка правил...</p></article>
+  </section>
+
+  <!-- ПРИВАТНОСТЬ -->
+  <section class="page" id="page-rules-privacy">
+    <h1>Политика <em>конфиденциальности</em></h1>
+    <p class="lead">Как мы обрабатываем и защищаем ваши данные</p>
+    <article class="card wide" style="margin-top:0"><h3>🔒 Правила приватности</h3><p class="loading">Загрузка правил...</p></article>
+  </section>
+
   <!-- ВОЗМОЖНОСТИ -->
   <section class="page" id="page-features">
     <h1>Возможности <em>Global Lens</em></h1>
@@ -271,9 +346,7 @@ blockquote{border-left:3px solid var(--acc2);background:var(--acc-soft);padding:
   <section class="page" id="page-season">
     <h1>Сезон <em>20</em></h1>
     <p class="lead">Юбилейный сезон — старт в эту пятницу!</p>
-    <article class="card wide" style="margin-top:0">
-      <p>Двадцатый сезон Global Lens только что начался. Это юбилейный рубеж, который приносит кардинальные изменения в экономику, автономии, дипломатию и многое другое.</p>
-    </article>
+    <article class="card wide" style="margin-top:0"><p>Двадцатый сезон Global Lens только что начался. Это юбилейный рубеж, который приносит кардинальные изменения в экономику, автономии, дипломатию и многое другое.</p></article>
     <div class="stats">
       <div class="stat"><b>24</b><span>Государства</span></div>
       <div class="stat"><b>1</b><span>ЧВК</span></div>
@@ -340,39 +413,29 @@ blockquote{border-left:3px solid var(--acc2);background:var(--acc-soft);padding:
       </article>
     </div>
   </section>
-
-  <!-- ПРАВИЛА -->
-  <section class="page" id="page-rules">
-    <h1>Правила <em>проекта</em></h1>
-    <p class="lead">Условия участия и использования систем</p>
-    <div class="grid-3">
-      <article class="card"><h3> Правила сервера</h3><p>Для поддержания порядка и продуктивной игры.</p><p><a href="rules_server.html">Открыть →</a></p></article>
-      <article class="card"><h3> Правила бота</h3><p>Условия использования автоматизированных систем.</p><p><a href="rules_bot.html">Открыть →</a></p></article>
-      <article class="card"><h3>🔒 Приватность</h3><p>Как мы обрабатываем и защищаем ваши данные.</p><p><a href="rules_privacy.html">Открыть →</a></p></article>
-    </div>
-  </section>
 </main>
 </div>
 
 <script>
 const tabsBar=document.getElementById('infoTabs');
+const infoIds=['about','news','updates'],ruleIds=['rules-server','rules-bot','rules-privacy'];
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.go===id));
-  tabsBar.style.display=['about','news','updates'].includes(id)?'flex':'none';
+  tabsBar.style.display=infoIds.includes(id)?'flex':'none';
   document.querySelectorAll('.side-nav .active').forEach(x=>x.classList.remove('active'));
-  const g=document.getElementById('infoGroup');
-  if(['about','news','updates','rules'].includes(id)){
-    document.getElementById('infoBtn').classList.add('active');g.classList.add('open');
-    document.querySelector('.sub-item[data-go="'+(id==='rules'?'rules':'about')+'"]').classList.add('active');
-  }else{
-    const el=document.querySelector('.side-nav .nav-item[data-go="'+id+'"]');
-    if(el)el.classList.add('active');
+  if(infoIds.includes(id)||ruleIds.includes(id)){
+    document.getElementById('infoBtn').classList.add('active');
+    document.getElementById('infoGroup').classList.add('open');
   }
+  if(ruleIds.includes(id))document.getElementById('rulesGroup').classList.add('open');
+  const sel=document.querySelector('.side-nav [data-go="'+id+'"]');
+  if(sel)sel.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();go(el.dataset.go);}));
 document.getElementById('infoBtn').addEventListener('click',()=>document.getElementById('infoGroup').classList.toggle('open'));
+document.getElementById('rulesBtn').addEventListener('click',()=>document.getElementById('rulesGroup').classList.toggle('open'));
 const names={green:'Green',blue:'Blue',orange:'Orange'};
 document.querySelectorAll('[data-theme-set]').forEach(b=>b.addEventListener('click',()=>{
   document.documentElement.dataset.theme=b.dataset.themeSet;
